@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Placement Report for Year: <%= year %></title>
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --text-color: #333;
+      --background-color: #f4f6f7;
+      --table-header-bg: #2c3e50;
+      --table-alternate-row: #f2f2f2;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: var(--background-color);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .generated-info {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 12px;
+      color: #555;
+      z-index: 1000;
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+
+    h2, h3, h4 {
+      text-align: center;
+      color: var(--secondary-color);
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+    }
+
+    table th {
+      background-color: var(--table-header-bg);
+      color: white;
+      padding: 12px;
+      text-align: left;
+    }
+
+    table td {
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+
+    table tr:nth-child(even) {
+      background-color: var(--table-alternate-row);
+    }
+
+    table tr:hover {
+      background-color: #e6e6e6;
+      transition: background-color 0.3s ease;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 15px;
+      background-color: var(--primary-color);
+      color: white;
+      margin-top: 20px;
+    }
+
+    @media print {
+      .generated-info {
+        position: absolute;
+      }
+      body {
+        background-color: white;
+      }
+    }
+
+    /* Additional styling for placement-specific details */
+    .salary-highlight {
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+  </style>
+</head>
+<body>
+  <div class="generated-info">
+    Generated on: <%= new Date().toLocaleString() %>
+  </div>
+  <div class="container">
+    <h1>Placement Report for Year: <%= year %></h1>
+    <h2>Prepared by: <%= user.first_name %> <%= user.last_name %></h2>
+    <h3>Department: Placement Department</h3>
+    <h4>Email: <%= user.email %></h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>Company</th>
+          <th>Position</th>
+          <th>Salary</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (placementData.length > 0) { %>
+          <% placementData.forEach(data => { %>
+            <tr>
+              <td><%= data.student_name || 'N/A' %></td>
+              <td><%= data.company_name || 'N/A' %></td>
+              <td><%= data.position || 'N/A' %></td>
+              <td class="salary-highlight">
+                ₹ <%= data.salary ? data.salary.toLocaleString() : '0' %>
+              </td>
+            </tr>
+          <% }); %>
+        <% } else { %>
+          <tr>
+            <td colspan="4" style="text-align: center;">No data available for the selected options.</td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+    <div class="footer">
+      © <%= new Date().getFullYear() %> <%= instituteName %>. All Rights Reserved.
+    </div>
+  </div>
+</body>
+</html>

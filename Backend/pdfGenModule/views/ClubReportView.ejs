@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Club Report for Year: <%= year %> | <%= instituteName %></title>
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --text-color: #333;
+      --background-color: #f4f6f7;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: var(--background-color);
+    }
+
+    .report-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    .report-header {
+      text-align: center;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--primary-color);
+    }
+
+    .report-header h1 {
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+
+    .report-metadata {
+      display: flex;
+      justify-content: space-between;
+      margin: 15px 0;
+      font-size: 0.9em;
+      color: #666;
+    }
+
+    .section-header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 12px;
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .club-summary-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .stat-box {
+      background-color: #f1f1f1;
+      padding: 15px;
+      text-align: center;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .club-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    .club-table th {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 12px;
+      text-align: left;
+    }
+
+    .club-table td {
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+
+    .club-table tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .club-table tr:hover {
+      background-color: #e6e6e6;
+    }
+
+    .no-data {
+      text-align: center;
+      color: #777;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+
+    .generated-info {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      font-size: 0.8em;
+      color: #666;
+    }
+
+    .report-footer {
+      text-align: center;
+      padding: 15px;
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 0.9em;
+      margin-top: 20px;
+    }
+
+    @media print {
+      .generated-info {
+        position: absolute;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="generated-info">
+    Generated on: <%= new Date().toLocaleString() %>
+  </div>
+  
+  <div class="report-container">
+    <div class="report-header">
+      <h1>Club Management Report</h1>
+      <h2><%= instituteName %> | Academic Year <%= year %></h2>
+    </div>
+
+    <div class="report-metadata">
+      <div>
+        <strong>Prepared By:</strong> 
+        <%= user.first_name %> <%= user.last_name %>
+      </div>
+      <div>
+        <strong>Department:</strong> Club Management
+      </div>
+      <div>
+        <strong>Email:</strong> <%= user.email %>
+      </div>
+    </div>
+
+    <% 
+    // Calculate summary statistics
+    const totalClubs = clubData.length;
+    const totalClubEvents = clubData.reduce((sum, club) => sum + (club.total_events || 0), 0);
+    const totalClubBudget = clubData.reduce((sum, club) => sum + (club.total_budget || 0), 0);
+    %>
+
+    <div class="club-summary-stats">
+      <div class="stat-box">
+        <h3>Total Clubs</h3>
+        <p><%= totalClubs %></p>
+      </div>
+      <div class="stat-box">
+        <h3>Total Club Events</h3>
+        <p><%= totalClubEvents %></p>
+      </div>
+      <div class="stat-box">
+        <h3>Total Club Budget</h3>
+        <p>₹ <%= totalClubBudget.toLocaleString() %></p>
+      </div>
+    </div>
+
+    <% if (options.includes('1')) { %>
+      <div class="section-header">Club Basic Information</div>
+      <table class="club-table">
+        <thead>
+          <tr>
+            <th>Club Name</th>
+            <th>Club Type</th>
+            <th>Club Head</th>
+            <th>Department</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (clubData.length > 0) { %>
+            <% clubData.forEach(data => { %>
+              <tr>
+                <td><%= data.club_name || 'N/A' %></td>
+                <td><%= data.club_type || 'N/A' %></td>
+                <td>
+                  <%= data.head_first_name ? `${data.head_first_name} ${data.head_last_name || ''}` : 'N/A' %>
+                </td>
+                <td><%= data.dept_name || 'N/A' %></td>
+              </tr>
+            <% }); %>
+          <% } else { %>
+            <tr>
+              <td colspan="4" class="no-data">No club information available.</td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    <% } %>
+
+    <% if (options.includes('2')) { %>
+      <div class="section-header">Club Activities by Event Type</div>
+      <table class="club-table">
+        <thead>
+          <tr>
+            <th>Club Name</th>
+            <th>Event Type</th>
+            <th>Total Events</th>
+            <th>Total Budget</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (clubData.length > 0) { %>
+            <% clubData.forEach(data => { %>
+              <tr>
+                <td><%= data.club_name || 'N/A' %></td>
+                <td><%= data.event_type || 'N/A' %></td>
+                <td><%= data.total_events || 0 %></td>
+                <td>₹ <%= data.total_budget ? data.total_budget.toLocaleString() : '0' %></td>
+              </tr> 
+            <% }); %>
+          <% } else { %>
+            <tr>
+              <td colspan="4" class="no-data">No event type information available.</td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    <% } %>
+
+    <% if (options.includes('3')) { %>
+      <div class="section-header">Detailed Budget Analysis</div>
+      <table class="club-table">
+        <thead>
+          <tr>
+            <th>Club Name</th>
+            <th>Total Events</th>
+            <th>Total Budget</th>
+            <th>Average Event Budget</th>
+            <th>Min Event Budget</th>
+            <th>Max Event Budget</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (clubData.length > 0) { %>
+            <% clubData.forEach(data => { %>
+              <tr>
+                <td><%= data.club_name || 'N/A' %></td>
+                <td><%= data.total_events || 0 %></td>
+                <td>₹ <%= data.total_budget ? data.total_budget.toLocaleString() : '0' %></td>
+                <td>₹ <%= data.average_event_budget ? data.average_event_budget.toLocaleString() : '0' %></td>
+                <td>₹ <%= data.min_event_budget ? data.min_event_budget.toLocaleString() : '0' %></td>
+                <td>₹ <%= data.max_event_budget ? data.max_event_budget.toLocaleString() : '0' %></td>
+              </tr>
+            <% }); %>
+          <% } else { %>
+            <tr>
+              <td colspan="6" class="no-data">No budget analysis information available.</td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    <% } %>
+
+    <% if (options.includes('5') && additionalData.facultyData) { %>
+      <div class="section-header">Club Faculty Information</div>
+      <table class="club-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Associated Club</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% additionalData.facultyData.forEach(faculty => { %>
+            <tr>
+              <td><%= `${faculty.first_name} ${faculty.last_name}` %></td>
+              <td><%= faculty.dept_name %></td>
+              <td><%= faculty.club_name || 'N/A' %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } %>
+
+    <% if (options.includes('6') && additionalData.clubEventSummaries) { %>
+      <div class="section-header">Detailed Club Event Summaries</div>
+      <table class="club-table">
+        <thead>
+          <tr>
+            <th>Club Name</th>
+            <th>Total Events</th>
+            <th>Total Budget</th>
+            <th>Average Budget</th>
+            <th>Event Types</th>
+            <th>First Event</th>
+            <th>Last Event</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% additionalData.clubEventSummaries.forEach((summary) => { 
+            const correspondingClub = clubData.find(club => 
+              club.club_name === summary.clubName
+            );
+          %>
+            <tr>
+              <td><%= summary.clubName || 'N/A' %></td>
+              <td><%= summary.summary.total_events || 0 %></td>
+              <td>₹ <%= summary.summary.total_budget ? summary.summary.total_budget.toLocaleString() : '0' %></td>
+              <td>₹ <%= summary.summary.avg_budget ? summary.summary.avg_budget.toLocaleString() : '0' %></td>
+              <td><%= summary.summary.event_types || 'N/A' %></td>
+              <td>
+                <%= summary.summary.first_event 
+                    ? new Date(summary.summary.first_event).toLocaleDateString() 
+                    : 'N/A' %>
+              </td>
+              <td>
+                <%= summary.summary.last_event 
+                    ? new Date(summary.summary.last_event).toLocaleDateString() 
+                    : 'N/A' %>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } %>
+
+    <div class="report-footer">
+      © <%= new Date().getFullYear() %> <%= instituteName %>. All Rights Reserved.
+    </div>
+  </div>
+</body>
+</

@@ -1,0 +1,7 @@
+1) download the packges respectively
+2) node app.js in terminal
+3) hit the end point /generate-pdf 
+-----pdf will get downloaded in downloads folder in local storage
+---is having the option to view it on browser and download the pdf too..
+---created the proper folder structure
+

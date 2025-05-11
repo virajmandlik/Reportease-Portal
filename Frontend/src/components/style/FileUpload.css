@@ -1,0 +1,105 @@
+/* Enhanced Styling */
+
+/* Card Styling */
+.file-upload {
+  max-width: 500px;
+  margin: 20px auto;
+  border-radius: 8px;
+  background-color: #ffffff;
+  transition: box-shadow 0.3s ease;
+}
+
+.file-upload:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Label Styling */
+.file-upload .form-label {
+  font-weight: 600;
+  color: #495057;
+  font-size: 16px;
+}
+
+/* File Input Field */
+.file-upload .form-control {
+  border: 2px dashed #6c757d;
+  border-radius: 5px;
+  padding: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.file-upload .form-control:hover {
+  border-color: #007bff;
+}
+
+/* Buttons Styling */
+.file-upload button {
+  width: 48%;
+  margin-bottom: 10px;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+}
+
+.file-upload .btn-primary {
+  background-color: #007bff;
+  border: none;
+}
+
+.file-upload .btn-warning {
+  background-color: #ffc107;
+  border: none;
+}
+
+.file-upload .btn-success {
+  background-color: #28a745;
+  border: none;
+}
+
+/* Hover Effects */
+.file-upload button:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+  opacity: 0.9;
+}
+
+/* Disabled Button */
+button:disabled {
+  background-color: #cfd4da;
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Animation Effects for Buttons */
+.btn-animated {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-animated::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: left 0.5s;
+}
+
+.btn-animated:hover::after {
+  left: 100%;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .file-upload button {
+    width: 100%;
+  }
+  .file-upload .d-flex {
+    flex-direction: column;
+    align-items: center;
+  }
+}

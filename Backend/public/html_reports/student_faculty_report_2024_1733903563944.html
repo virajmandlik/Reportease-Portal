@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student and Faculty Administration Report | 2024 | pccoe</title>
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --text-color: #333;
+      --background-color: #f4f6f7;
+      --table-header-bg: #2c3e50;
+      --table-alternate-row: #f2f2f2;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: var(--background-color);
+    }
+
+    .report-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .generated-info {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 12px;
+      color: #555;
+      z-index: 1000;
+    }
+
+    .report-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      color: var(--secondary-color);
+      margin-bottom: 20px;
+    }
+
+    .report-metadata {
+      display: flex;
+      justify-content: space-between;
+      background-color: #f9f9f9;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+
+    .summary-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .stat-box {
+      background-color: var(--secondary-color);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      border-radius: 5px;
+    }
+
+    .stat-box h3 {
+      margin-bottom: 10px;
+      color: white;
+    }
+
+    .stat-box p {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .section-header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 10px;
+      text-align: center;
+      margin: 20px 0 10px;
+      font-weight: bold;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+    }
+
+    .data-table th {
+      background-color: var(--table-header-bg);
+      color: white;
+      padding: 12px;
+      text-align: left;
+    }
+
+    .data-table td {
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+
+    .data-table tr:nth-child(even) {
+      background-color: var(--table-alternate-row);
+    }
+
+    .data-table tr:hover {
+      background-color: #e6e6e6;
+      transition: background-color 0.3s ease;
+    }
+
+    .no-data {
+      text-align: center;
+      color: #888;
+      padding: 20px;
+    }
+
+    .report-footer {
+      text-align: center;
+      padding: 15px;
+      background-color: var(--primary-color);
+      color: white;
+      margin-top: 20px;
+    }
+
+    @media print {
+      .generated-info {
+        position: absolute;
+      }
+      body {
+        background-color: white;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .summary-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .summary-stats {
+        grid-template-columns: 1fr;
+      }
+      .report-metadata {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="generated-info">
+    Generated on: 12/11/2024, 1:22:43 PM
+  </div>
+  
+  <div class="report-container">
+    <div class="report-header">
+      <h1>Student and Faculty Administration Report</h1>
+      <h2>pccoe | Academic Year 2024</h2>
+    </div>
+
+    <div class="report-metadata">
+      <div>
+        <strong>Prepared By:</strong> 
+        StudeAndFacu ment
+      </div>
+      <div>
+        <strong>Department:</strong> Administration
+      </div>
+      <div>
+        <strong>Email:</strong> 
+      </div>
+    </div>
+
+    
+
+    <div class="summary-stats">
+      <div class="stat-box">
+        <h3>Total Students</h3>
+        <p>55</p>
+      </div>
+      <div class="stat-box">
+        <h3>Total Departments</h3>
+        <p>3</p>
+      </div>
+      <div class="stat-box">
+        <h3>Total Achievements</h3>
+        <p>0</p>
+      </div>
+      <div class="stat-box">
+        <h3>Total Research Works</h3>
+        <p>0</p>
+      </div>
+    </div>
+
+    
+      <div class="section-header">Student Basic Information</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Mobile Number</th>
+            <th>Gender</th>
+            <th>Department</th>
+            <th>Grade</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+            
+              <tr>
+                <td>studentA</td>
+                <td>mandlik</td>
+                <td>varsdsu29425@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Female</td>
+                <td>Department11</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>Vishalu</td>
+                <td>ment</td>
+                <td>vishal.kesharwani@mitaoe.ac.in</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>Department11</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>studentsample</td>
+                <td>ment</td>
+                <td>oknil@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>Department15</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>Parth</td>
+                <td>Kulkarni</td>
+                <td>parth.kulkarni@mitaoe.ac.in</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>Guru</td>
+                <td>Dahiphale</td>
+                <td>guru.dahiphale@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>Hanumant</td>
+                <td>Kakde</td>
+                <td>hanumant@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>Rajeshwari</td>
+                <td>Goudar</td>
+                <td>goudar@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Female</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>Guru</td>
+                <td>Dahiphale</td>
+                <td>guru@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>Mahesh</td>
+                <td>gaudar</td>
+                <td>mg@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Female</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>Shridhar</td>
+                <td>Khandekar</td>
+                <td>sk@mitaoe.ac.in</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>Vishal</td>
+                <td>Kesharwani</td>
+                <td>v@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>ijk</td>
+                <td>lmn</td>
+                <td>opq@gmail.cmo</td>
+                <td>1287124728</td> ```html
+                <td>Female</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>viraj</td>
+                <td>mandlik</td>
+                <td>viraj.mandlik01@mitaoe.ac.in</td>
+                <td>1234567890</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>om</td>
+                <td>niaiakd</td>
+                <td>viraj.mandli02k@mitaoe.ac.in</td>
+                <td>1234567890</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>varun</td>
+                <td>mandlik</td>
+                <td>varu29425@gmail.com</td>
+                <td>1234567890</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td> ```html
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>hanu</td>
+                <td>Mandlik</td>
+                <td>manjiri@gmail.com</td>
+                <td>1234567890</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>facultyA</td>
+                <td>mant</td>
+                <td>manjiri12@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Female</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>facultyA</td>
+                <td>mant</td>
+                <td>manqwdqjiri@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Female</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>Virajqwd</td>
+                <td>acasc</td>
+                <td>msdvssnjiri@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Female</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>facultyAB</td>
+                <td>Mandliksa</td>
+                <td>manasjiri@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Female</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>adminA</td>
+                <td>ment</td>
+                <td>admin@gmial.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>Design Cordinator</td>
+                <td>ment</td>
+                <td>manjiaari@gmail.com</td>
+                <td>1234567890</td> ```html
+                <td>Female</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>ETC Cordinator</td>
+                <td>ment</td>
+                <td>mascasacnjiri@gmail.com</td>
+                <td>1234567890</td> ```html
+                <td>Female</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>viraj</td>
+                <td>MANDLIK </td>
+                <td>manssajiri@gmail.com</td>
+                <td>1234567890</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>ranja</td>
+                <td>badre</td>
+                <td>manjiwwqdri@gmail.com</td>
+                <td>1234567890</td> ```html
+                <td>Female</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>rahul</td>
+                <td>patil</td>
+                <td>mwefweanjiri@gmail.com</td>
+                <td>1234567890</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>vxc</td>
+                <td>mnb</td>
+                <td>manafajiri@gmail.com</td>
+                <td>1234567890</td> ```html
+                <td>Female</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>Viraj</td>
+                <td>ment</td>
+                <td>afsam@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>facultyC</td>
+                <td>ment</td>
+                <td>maavafnjiri@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>cort</td>
+                <td>ment</td>
+                <td>niyhl@gmail.com</td>
+                <td>N/A</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>ramu</td>
+                <td>ment</td>
+                <td>udbanjiri@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>sahmu</td>
+                <td>ment</td>
+                <td>ssvaru29425@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>facultyO</td>
+                <td>N/A</td>
+                <td>rauhm@gmail.com</td>
+                <td>N/A</td> ```html
+                <td>Other</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>studentAB</td>
+                <td>ment</td>
+                <td>varsdcu29425@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>facultyC</td>
+                <td>mant</td>
+                <td>niladfs@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>sdv</td>
+                <td>sdvcsd</td>
+                <td>msdvcanjiri@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>Viraj</td>
+                <td>ment</td>
+                <td>niaasl@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>amrik</td>
+                <td>badra</td>
+                <td>nadsil@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>partop</td>
+                <td>ment</td>
+                <td>nil@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>cordP</td>
+                <td>ment</td>
+                <td>manjiadaari@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Female</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>guru</td>
+                <td>ment</td>
+                <td>manjiczri@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>Rahul</td>
+                <td>ment</td>
+                <td>manadaajiri@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>siddhi</td>
+                <td>dcsf</td>
+                <td>siddhi280921@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Female</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>siddhi</td>
+                <td>dcsf</td>
+                <td>siddhichappre2128@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Female</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>Vicky</td>
+                <td>ment</td>
+                <td>manasdjiri@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>facultyAD</td>
+                <td>ment</td>
+                <td>varu2aa9425@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>Admin</td>
+                <td>ment</td>
+                <td>radioam@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>abc</td>
+                <td>ment</td>
+                <td>maniojiri@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>ramu</td>
+                <td>ment</td>
+                <td>viraj.maadndlik@mitaoe.ac.in</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>sihu</td>
+                <td>moselwaw</td>
+                <td>viraj.mzandlik@mitaoe.ac.in</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>Infra</td>
+                <td>ment</td>
+                <td>varu29ad425@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>Club</td>
+                <td>ment</td>
+                <td>ramer@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>StudeAndFacu</td>
+                <td>ment</td>
+                <td>varu2942yu5@gmail.com</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+              <tr>
+                <td>Neeraj</td>
+                <td>Kumar</td>
+                <td>viraj.manddflik@mitaoe.ac.in</td>
+                <td>2147483647</td> ```html
+                <td>Male</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            
+          
+        </tbody>
+      </table>
+    
+
+    
+
+    
+
+    <div class="report-footer">
+      © 2024 pccoe. All Rights Reserved.
+    </div>
+  </div>
+</body>
+</html>

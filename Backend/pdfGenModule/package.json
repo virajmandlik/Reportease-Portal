@@ -1,0 +1,23 @@
+{
+  "name": "v02",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "chart.js": "^4.4.6",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "mysql2": "^3.11.5",
+    "pdf-creator-node": "^2.3.5",
+    "puppeteer": "^23.9.0",
+    "v02": "file:"
+  }
+}

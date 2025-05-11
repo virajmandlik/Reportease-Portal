@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student and Faculty Administration Report | <%= year %> | <%= instituteName %></title>
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --text-color: #333;
+      --background-color: #f4f6f7;
+      --table-header-bg: #2c3e50;
+      --table-alternate-row: #f2f2f2;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: var(--background-color);
+    }
+
+    .report-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .generated-info {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 12px;
+      color: #555;
+      z-index: 1000;
+    }
+
+    .report-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      color: var(--secondary-color);
+      margin-bottom: 20px;
+    }
+
+    .report-metadata {
+      display: flex;
+      justify-content: space-between;
+      background-color: #f9f9f9;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+
+    .summary-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .stat-box {
+      background-color: var(--secondary-color);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      border-radius: 5px;
+    }
+
+    .stat-box h3 {
+      margin-bottom: 10px;
+      color: white;
+    }
+
+    .stat-box p {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .section-header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 10px;
+      text-align: center;
+      margin: 20px 0 10px;
+      font-weight: bold;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+    }
+
+    .data-table th {
+      background-color: var(--table-header-bg);
+      color: white;
+      padding: 12px;
+      text-align: left;
+    }
+
+    .data-table td {
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+
+    .data-table tr:nth-child(even) {
+      background-color: var(--table-alternate-row);
+    }
+
+    .data-table tr:hover {
+      background-color: #e6e6e6;
+      transition: background-color 0.3s ease;
+    }
+
+    .no-data {
+      text-align: center;
+      color: #888;
+      padding: 20px;
+    }
+
+    .report-footer {
+      text-align: center;
+      padding: 15px;
+      background-color: var(--primary-color);
+      color: white;
+      margin-top: 20px;
+    }
+
+    @media print {
+      .generated-info {
+        position: absolute;
+      }
+      body {
+        background-color: white;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .summary-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .summary-stats {
+        grid-template-columns: 1fr;
+      }
+      .report-metadata {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="generated-info">
+    Generated on: <%= new Date().toLocaleString() %>
+  </div>
+  
+  <div class="report-container">
+    <div class="report-header">
+      <h1>Student and Faculty Administration Report</h1>
+      <h2><%= instituteName %> | Academic Year <%= year %></h2>
+    </div>
+
+    <div class="report-metadata">
+      <div>
+        <strong>Prepared By:</strong> 
+        <%= user.first_name %> <%= user.last_name %>
+      </div>
+      <div>
+        <strong>Department:</strong> Administration
+      </div>
+      <div>
+        <strong>Email:</strong> <%= user.email %>
+      </div>
+    </div>
+
+    <% 
+    // Calculate summary statistics
+    const totalStudents = studentFacultyData.length;
+    const totalDepartments = new Set(studentFacultyData.map(data => data.dept_name)).size;
+    const totalAchievements = studentFacultyData.reduce((sum, data) => sum + (data.total_achievements || 0), 0);
+    const totalResearchWorks = studentFacultyData.reduce((sum, data) => sum + (data.total_research_works || 0), 0);
+    %>
+
+    <div class="summary-stats">
+      <div class="stat-box">
+        <h3>Total Students</h3>
+        <p><%= totalStudents %></p>
+      </div>
+      <div class="stat-box">
+        <h3>Total Departments</h3>
+        <p><%= totalDepartments %></p>
+      </div>
+      <div class="stat-box">
+        <h3>Total Achievements</h3>
+        <p><%= totalAchievements %></p>
+      </div>
+      <div class="stat-box">
+        <h3>Total Research Works</h3>
+        <p><%= totalResearchWorks %></p>
+      </div>
+    </div>
+
+    <% if (options.includes('1')) { %>
+      <div class="section-header">Student Basic Information</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Mobile Number</th>
+            <th>Gender</th>
+            <th>Department</th>
+            <th>Grade</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (studentFacultyData.length > 0) { %>
+            <% studentFacultyData.forEach(data => { %>
+              <tr>
+                <td><%= data.first_name || 'N/A' %></td>
+                <td><%= data.last_name || 'N/A' %></td>
+                <td><%= data.email_id || 'N/A' %></td>
+                <td><%= data.mobile_number || 'N/A' %></td> ```html
+                <td><%= data.gender || 'N/A' %></td>
+                <td><%= data.dept_name || 'N/A' %></td>
+                <td><%= data.grade || 'N/A' %></td>
+                <td><%= data.res_status || 'N/A' %></td>
+              </tr>
+            <% }); %>
+          <% } else { %>
+            <tr>
+              <td colspan="8" class="no-data">No student information available.</td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    <% } %>
+
+    <% if (options.includes('3') && additionalData.achievementTypes) { %>
+      <div class="section-header">Achievements and Recognitions</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Achievement Type</th>
+            <th>Count</th>
+            <th>Total Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% additionalData.achievementTypes.forEach(achievement => { %>
+            <tr>
+              <td><%= achievement.ach_type || 'N/A' %></td>
+              <td><%= achievement.type_count || 0 %></td>
+              <td><%= achievement.total_score ? achievement.total_score.toLocaleString() : '0' %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } %>
+
+    <% if (options.includes('4') && additionalData.researchFundingAnalysis) { %>
+      <div class="section-header">Research Funding Analysis</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Funded By</th>
+            <th>Total Projects</th>
+            <th>Total Funding</th>
+            <th>Average Funding</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% additionalData.researchFundingAnalysis.forEach(funding => { %>
+            <tr>
+              <td><%= funding.funded_by || 'N/A' %></td>
+              <td><%= funding.total_projects || 0 %></td>
+              <td>₹ <%= funding.total_funding ? funding.total_funding.toLocaleString() : '0' %></td>
+              <td>₹ <%= funding.average_funding ? funding.average_funding.toLocaleString() : '0' %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } %>
+
+    <div class="report-footer">
+      © <%= new Date().getFullYear() %> <%= instituteName %>. All Rights Reserved.
+    </div>
+  </div>
+</body>
+</html>

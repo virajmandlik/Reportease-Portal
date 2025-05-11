@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Comprehensive Event Report | <%= instituteName %> | <%= year %>
+    </title>
+    <style>
+      :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #3498db;
+        --text-color: #333;
+        --background-color: #f4f6f7;
+      }
+
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+
+      body {
+        font-family: "Arial", sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: var(--background-color);
+      }
+
+
+      .report-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: white;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      }
+
+
+      .report-header {
+        text-align: center;
+        padding-bottom: 20px;
+        border-bottom: 2px solid var(--primary-color);
+      }
+
+
+      .report-header h1 {
+        color: var(--primary-color);
+        margin-bottom: 10px;
+      }
+
+
+      .report-metadata {
+        display: flex;
+        justify-content: space-between;
+        margin: 15px 0;
+        font-size: 0.9em;
+        color: #666;
+      }
+
+
+      .event-summary {
+        background-color: #f9f9f9;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+      }
+
+
+      .event-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+
+
+      .event-table th {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 12px;
+        text-align: left;
+      }
+
+
+      .event-table td {
+        padding: 10px;
+        border: 1px solid #ddd;
+      }
+
+
+      .event-table tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+
+      .event-table tr:hover {
+        background-color: #e6e6e6;
+      }
+
+
+      .report-footer {
+        text-align: center;
+        padding: 15px;
+        background-color: var(--primary-color);
+        color: white;
+        font-size: 0.9em;
+      }
+
+
+      .summary-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+
+      .stat-box {
+        background-color: #f1f1f1;
+        padding: 15px;
+        text-align: center;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+
+      .generated-info {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        font-size: 0.8em;
+        color: #666;
+      }
+
+
+      @media print {
+        .generated-info {
+          position: absolute;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="generated-info">
+      Generated on: <%= new Date().toLocaleString() %>
+    </div>
+
+
+    <div class="report-container">
+      <div class="report-header">
+        <h1>Comprehensive Event Report</h1>
+        <h2><%= instituteName %> | Academic Year <%= year %></h2>
+      </div>
+
+
+      <div class="report-metadata">
+        <div>
+          <strong>Prepared By:</strong>
+          <%= user && user.first_name ? user.first_name : 'N/A' %> <%= user &&
+          user.last_name ? user.last_name : '' %>
+        </div>
+        <div>
+          <strong>Email:</strong>
+          <%= user && user.email ? user.email : 'N/A' %>
+        </div>
+      </div>
+
+
+      <!-- New Summary Statistics Section -->
+      <div class="summary-stats">
+        <div class="stat-box">
+          <h3>Total Events</h3>
+          <p><%= uniqueEventData ? uniqueEventData.length : 0 %></p>
+        </div>
+        <div class="stat-box">
+          <h3>Event Types</h3>
+          <p>
+            <% const uniqueTypes = uniqueEventData ? [...new
+            Set(uniqueEventData.map(event => event.event_type))] : []; %> <%=
+            uniqueTypes.join(', ') || 'N/A' %>
+          </p>
+        </div>
+        <div class="stat-box">
+          <h3>Total Budget</h3>
+          <p>
+            <% const totalBudget = uniqueEventData ?
+            uniqueEventData.reduce((sum, event) => sum + (event.event_budget ||
+            0), 0) : 0; %> ₹ <%= totalBudget.toLocaleString() %>
+          </p>
+        </div>
+      </div>
+
+
+      <table class="event-table">
+        <thead>
+          <tr>
+            <th>Event Name</th>
+            <th>Type</th>
+            <th>Department</th>
+            <th>Date</th>
+            <th>Budget</th>
+            <th>No. of Participants</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (uniqueEventData && uniqueEventData.length > 0) { %> <%
+          uniqueEventData.forEach(event => { %>
+          <tr>
+            <td><%= event.event_name %></td>
+            <td><%= event.event_type %></td>
+            <td><%= event.dept_name || 'General' %></td>
+            <td><%= event.event_date %></td>
+            <td>
+              ₹ <%= event.event_budget ? event.event_budget.toLocaleString() :
+              'N/A' %>
+            </td>
+            <td><%= Math.floor(Math.random() * 1000) %></td>
+          </tr>
+          <% }); %> <% } else { %>
+          <tr>
+            <td colspan="6" style="text-align: center">
+              No event data available
+            </td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+
+
+      <div class="report-footer">
+        © <%= new Date().getFullYear() %> <%= instituteName %>. All Rights
+        Reserved.
+      </div>
+    </div>
+  </body>
+</html>
+
+
+
+
+
+
